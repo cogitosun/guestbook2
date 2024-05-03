@@ -1,0 +1,52 @@
+appProjects:
+  services-dev:
+    description: Dev Environements
+    destinations:
+      - namespace: default
+        name: dev
+argocm:
+  resources:
+    exclusions:
+      - apiGroups:
+          - "*"
+        kinds:
+          - RoleBinding
+        clusters:
+          - "httpxxxx"
+    inclusions:
+      - apiGroups:
+          - "*"
+        kinds:
+          - Application
+          - ConfigMap
+          - Deployment
+          - DeploymentConfig
+          - PersistentVolumeClaim
+          - Route
+          - RoleBinding
+          - Secret
+          - Service
+          - ServiceAccount
+          - StatefulSet          
+        clusters:
+          - "*"    
+clusters:
+  dev: 
+    namespaces: "default"
+    url: "http:xxxx" 
+common:
+  namespace: "tools"
+environmentStates:
+  directoryInclude: '{dev/*}'
+  repoUrl: httpenvironement states
+  targetRevision: master
+github:
+  githubAppId: '877216'
+  githubAppInstallationId: '49635651'
+operator:
+  adminGroups:
+    - _Openshift-ocp-tools-rating-admin
+route:
+  host: route host to dsso
+  
+

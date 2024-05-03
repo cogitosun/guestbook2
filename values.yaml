@@ -1,0 +1,49 @@
+imageName: ''
+repository: ''
+repositories:
+  argocd-service:
+    images:
+      argocd-endpoints:
+        container: argocd-container
+        domain: cogitosun
+        imageName: argocd-endpoints
+        nameOverride: argocd-endpoints
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        envFrom:
+          - secretRef:
+                name: argocd-endpoints.secrets
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        configmaps:
+          - application.properties
+        volumeMounts:
+          - name: argocd-endpoints-logs
+            mountPath: /mnt/properties
+            subPath: logs
+          - name: secrets
+            secret:
+              secretName: argocd-endpoints.secrets
+    groupId: argocd
+    imageVersion: 1.0.0
+    organization: cogitosun
+configs:
+  test:
+    texte: toto
+        
+    
